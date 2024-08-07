@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Register from './component/RegisterForm';
-import Dashboard from './component/Dashboard';
+import Register from './component/RegisterForm.jsx';
+import Dashboard from './component/Dashboard.jsx';
 import toast, { Toaster } from 'react-hot-toast';
-import Login from './component/Login';
-import Profile from './component/Profile';
-import HomePage from './component/Home'; 
+import Login from './component/Login.jsx';
+import Profile from './component/Profile.jsx';
+import HomePage from './component/Home.jsx';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
