@@ -139,6 +139,7 @@ const NewHighlight = () => {
                 console.log('Note added successfully:', newNote);
                 toast.success('Note added successfully!');
                 resetForm();
+                location.reload();
                 <Navigate to={"/dashboard"}/>
             } else {
                 console.error('Failed to add note:', response.statusText);
