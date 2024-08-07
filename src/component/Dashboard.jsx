@@ -22,7 +22,7 @@ const Dashboard = ({ handleLogout }) => {
             try {
                 const token = localStorage.getItem('token'); // Get the token from localStorage
 
-                const response = await fetch('http://localhost:8080/user/user_details', {
+                const response = await fetch('https://notesapi-production-c782.up.railway.app/user/user_details', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`

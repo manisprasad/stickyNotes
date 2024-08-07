@@ -31,7 +31,7 @@ const NewHighlight = () => {
             try {
                 setFetchingGroups(true);
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:8080/user/user_details', {
+                const response = await fetch('http://notesapi-production-c782.up.railway.app/user/user_details', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -119,7 +119,7 @@ const NewHighlight = () => {
         // Send the new note to the API
         try {
             setAddingNote(true);
-            const response = await fetch('http://localhost:8080/notes/add', {
+            const response = await fetch('https://notesapi-production-c782.up.railway.app/notes/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

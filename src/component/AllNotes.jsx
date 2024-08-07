@@ -23,7 +23,7 @@ const AllNotes = () => {
         const fetchGroups = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:8080/user/user_details', {
+                const response = await fetch('https://notesapi-production-c782.up.railway.app/user/user_details', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -52,7 +52,7 @@ const AllNotes = () => {
                 let response;
 
                 if (selectedGroup) {
-                    response = await fetch(`http://localhost:8080/notes/filterByGroupName/${selectedGroup}`, {
+                    response = await fetch(`https://notesapi-production-c782.up.railway.app/notes/filterByGroupName/${selectedGroup}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -60,7 +60,7 @@ const AllNotes = () => {
                         },
                     });
                 } else if (selectedColor) {
-                    response = await fetch(`http://localhost:8080/notes/filterByColor/${selectedColor}`, {
+                    response = await fetch(`https://notesapi-production-c782.up.railway.app/notes/filterByColor/${selectedColor}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -68,7 +68,7 @@ const AllNotes = () => {
                         },
                     });
                 } else {
-                    response = await fetch('http://localhost:8080/notes/all', {
+                    response = await fetch('https://notesapi-production-c782.up.railway.app/notes/all', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -97,7 +97,7 @@ const AllNotes = () => {
         try {
             setDeleting(true);
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8080/notes/delete/${id}`, {
+            const response = await fetch(`https://notesapi-production-c782.up.railway.app/notes/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -133,7 +133,7 @@ const AllNotes = () => {
         try {
             setUpdating(true);
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8080/notes/update/${editingNote.id}`, {
+            const response = await fetch(`https://notesapi-production-c782.up.railway.app/notes/update/${editingNote.id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
