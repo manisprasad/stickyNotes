@@ -106,6 +106,7 @@ const NewHighlight = () => {
         }
         if(title.length > 20 || content.length > 50){
             toast.error("Please reduce the no. of character");
+             return;
         }
 
         const newNote = {
