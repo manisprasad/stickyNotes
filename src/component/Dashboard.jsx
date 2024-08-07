@@ -7,6 +7,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import AllNotes from "./AllNotes.jsx";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import Loading from "./loading/Loading.jsx";
 
 import "../index.css"
 
@@ -21,7 +22,7 @@ const Dashboard = ({ handleLogout }) => {
             try {
                 const token = localStorage.getItem('token'); // Get the token from localStorage
 
-                const response = await fetch('https://notesapi-production-c782.up.railway.app/user/user_details', {
+                const response = await fetch('http://localhost:8080/user/user_details', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -53,7 +54,7 @@ const Dashboard = ({ handleLogout }) => {
         setIsNewNoteVisible(!isNewNoteVisible);
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Loading/>;
     if (!userDetails) return <div>No user details available</div>;
 
     return (

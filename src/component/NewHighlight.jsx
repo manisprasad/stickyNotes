@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Note from './Note.jsx';
 import { IoIosAddCircleOutline } from "react-icons/io";
+import toast from 'react-hot-toast';
+import Loading from "./loading/Loading.jsx";
 
 const NewHighlight = () => {
     const [selectedGroup, setSelectedGroup] = useState('');
@@ -11,6 +13,9 @@ const NewHighlight = () => {
     const [newGroupName, setNewGroupName] = useState('');
     const [notes, setNotes] = useState([]);
     const [favourite, setFavourite] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [fetchingGroups, setFetchingGroups] = useState(false);
+    const [addingNote, setAddingNote] = useState(false);
 
     const [isActive, setIsActive] = useState(false);
     const [dragging, setDragging] = useState(false);
@@ -24,8 +29,9 @@ const NewHighlight = () => {
         // Fetch groups from the server
         const fetchGroups = async () => {
             try {
+                setFetchingGroups(true);
                 const token = localStorage.getItem('token');
-                const response = await fetch('https://notesapi-production-c782.up.railway.app/user/user_details', {
+                const response = await fetch('http://localhost:8080/user/user_details', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -40,12 +46,13 @@ const NewHighlight = () => {
                 }
             } catch (error) {
                 console.error('Error fetching groups:', error);
+            } finally {
+                setFetchingGroups(false);
             }
         };
 
         fetchGroups();
     }, []);
-
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -92,7 +99,7 @@ const NewHighlight = () => {
         e.preventDefault();
 
         if (!title || !content || !highlightColor) {
-            alert('Please fill in all fields and select a highlight color.');
+            toast.error('Please fill in all fields and select a highlight color.');
             return;
         }
 
@@ -111,7 +118,8 @@ const NewHighlight = () => {
 
         // Send the new note to the API
         try {
-            const response = await fetch('https://notesapi-production-c782.up.railway.app/notes/add', {
+            setAddingNote(true);
+            const response = await fetch('http://localhost:8080/notes/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,15 +132,17 @@ const NewHighlight = () => {
                 // Add the new note to the notes list locally if the request is successful
                 setNotes([...notes, newNote]);
                 console.log('Note added successfully:', newNote);
-                alert('Note added successfully!');
+                toast.success('Note added successfully!');
                 resetForm();
             } else {
                 console.error('Failed to add note:', response.statusText);
-                alert('Failed to add note. Please try again.');
+                toast.error('Failed to add note. Please try again.');
             }
         } catch (error) {
             console.error('Error adding note:', error);
-            alert('An error occurred while adding the note. Please try again.');
+            toast.error('An error occurred while adding the note. Please try again.');
+        } finally {
+            setAddingNote(false);
         }
     };
 
@@ -177,27 +187,32 @@ const NewHighlight = () => {
 
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-1">Group</label>
-                    <div className="flex items-center">
-                        <select
-                            value={selectedGroup}
-                            onChange={(e) => setSelectedGroup(e.target.value)}
-                            className="flex-1 p-1.5 border border-gray-300 rounded-sm text-sm"
-                        >
-                            <option value="">Select a group</option>
-                            {groups.map((group, index) => (
-                                <option key={index} value={group}>
-                                    {group}
-                                </option>
-                            ))}
-                        </select>
-                        <button
-                            type="button"
-                            onClick={handleAddGroup}
-                            className="ml-2 p-1.5 bg-indigo-600 text-white rounded-sm text-sm hover:bg-indigo-700"
-                        >
-                            Add
-                        </button>
-                    </div>
+                    {fetchingGroups ? (
+                        <Loading />
+                    ) : (
+                        <div className="flex items-center">
+                            <select
+                                value={selectedGroup}
+                                required={true}
+                                onChange={(e) => setSelectedGroup(e.target.value)}
+                                className="flex-1 p-1.5 border border-gray-300 rounded-sm text-sm"
+                            >
+                                <option value="">Select a group</option>
+                                {groups.map((group, index) => (
+                                    <option key={index} value={group}>
+                                        {group}
+                                    </option>
+                                ))}
+                            </select>
+                            <button
+                                type="button"
+                                onClick={handleAddGroup}
+                                className="ml-2 p-1.5 bg-indigo-600 text-white rounded-sm text-sm hover:bg-indigo-700"
+                            >
+                                Add
+                            </button>
+                        </div>
+                    )}
                     <input
                         type="text"
                         value={newGroupName}
@@ -251,8 +266,9 @@ const NewHighlight = () => {
                     <button
                         type="submit"
                         className="px-4 py-2 bg-indigo-600 text-white rounded-sm text-sm hover:bg-indigo-700"
+                        disabled={addingNote}
                     >
-                        Create
+                        {addingNote ? <Loading /> : 'Create'}
                     </button>
                 </div>
             </form>
