@@ -1,8 +1,33 @@
-# React + Vite
+# Sticky Notes Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Sticky Notes web application built using React for the frontend and Spring Boot for the backend. This app allows users to manage their sticky notes with various features including CRUD operations, authentication, and more.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **CRUD Operations**: Create, Read, Update, and Delete sticky notes.
+- **Mark as Favorite**: Users can mark notes as favorites.
+- **Statistics**: View the total number of notes and groups.
+- **Draggable Note Creation Form**: Create new notes with a draggable form for better user experience.
+- **Secure Authentication**: Sign up and log in securely. Each user has access only to their own notes.
+- **Privacy**: Users cannot view or access other users' sticky notes.
+
+## Technologies Used
+
+- **Frontend**: React
+- **Backend**: Spring Boot
+- **Database**: (Specify the database if used, e.g., MySQL, MongoDB)
+- **Authentication**: Secure user authentication with JWT
+
+## Installation
+
+### Prerequisites
+
+- Java 21 or higher
+- Node.js and npm (or yarn)
+- (Database, if applicable)
+
+### Backend Setup
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
