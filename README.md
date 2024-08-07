@@ -30,7 +30,7 @@ A Sticky Notes web application built using React for the frontend and Spring Boo
 https://github.com/manisprasad/NotesApi
 
 **Deployment Link (Railway.app)**
-notesapi-production-c782.up.railway.app
+https://notesapi-production-c782.up.railway.app
 
 1. Clone the repository:
    ```bash
