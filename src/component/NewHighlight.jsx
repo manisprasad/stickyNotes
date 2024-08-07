@@ -3,6 +3,7 @@ import Note from './Note.jsx';
 import { IoIosAddCircleOutline } from "react-icons/io";
 import toast from 'react-hot-toast';
 import Loading from "./loading/Loading.jsx";
+import {Navigate} from "react-router-dom";
 
 const NewHighlight = () => {
     const [selectedGroup, setSelectedGroup] = useState('');
@@ -103,6 +104,9 @@ const NewHighlight = () => {
             toast.error('Please fill in all fields and select a highlight color.');
             return;
         }
+        if(title.length > 20 || content.length > 50){
+            toast.error("Please reduce the no. of character");
+        }
 
         const newNote = {
             title,
@@ -135,7 +139,7 @@ const NewHighlight = () => {
                 console.log('Note added successfully:', newNote);
                 toast.success('Note added successfully!');
                 resetForm();
-                location.reload();
+                <Navigate to={"/dashboard"}/>
             } else {
                 console.error('Failed to add note:', response.statusText);
                 toast.error('Failed to add note. Please try again.');
