@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Register from './component/RegisterForm';
 import Dashboard from './component/Dashboard';
 import toast, { Toaster } from 'react-hot-toast';
@@ -22,7 +22,7 @@ const App = () => {
     };
 
     return (
-        <Router>
+        <>
             <Toaster />
             <Routes>
                 <Route path="/" element={isLoggedIn ? <Navigate to="/dashboard" /> : <HomePage />} />
@@ -31,7 +31,7 @@ const App = () => {
                 <Route path="/dashboard" element={isLoggedIn ? <Dashboard handleLogout={handleLogout} /> : <Navigate to="/" />} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
-        </Router>
+        </>
     );
 };
 
