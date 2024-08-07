@@ -15,7 +15,7 @@ A Sticky Notes web application built using React for the frontend and Spring Boo
 
 - **Frontend**: React
 - **Backend**: Spring Boot
-- **Database**: (Specify the database if used, e.g., MySQL, MongoDB)
+- **Database**: (MongoDB) for schema flexibility
 - **Authentication**: Secure user authentication with JWT
 
 ## Installation
