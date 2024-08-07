@@ -5,7 +5,7 @@ import Dashboard from './component/Dashboard';
 import toast, { Toaster } from 'react-hot-toast';
 import Login from './component/Login';
 import Profile from './component/Profile';
-import HomePage from './component/Home'; // Ensure the correct path
+import HomePage from './component/Home'; 
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
