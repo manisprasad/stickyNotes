@@ -1,39 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+// src/Dashboard.jsx
+import React, { useEffect, useState } from 'react';
+import { useNavigate , Link} from 'react-router-dom';
 import toast from 'react-hot-toast';
-import Draggable from 'react-draggable';
-import GroupSelector from "./GroupSelecter.jsx";
-import ColorPicker from "./ColorPicker.jsx";
-import {defaultColor} from "./constant.jsx";
+import NewHighlight from "./NewHighlight.jsx";
+import { AiOutlineLogout } from "react-icons/ai";
+import { FaUserCircle } from "react-icons/fa";
+import AllNotes from "./AllNotes.jsx";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
-
-const colors = ['bg-yellow-300', 'bg-pink-300', 'bg-blue-300', 'bg-green-300'];
-
+import "../index.css"
 
 const Dashboard = ({ handleLogout }) => {
     const navigate = useNavigate();
-
-    const logout = () => {
-        handleLogout();
-        navigate('/');
-    };
-
     const [userDetails, setUserDetails] = useState(null);
     const [loading, setLoading] = useState(true);
-
-
-    const [color, setColor] = useState(defaultColor);
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [group, setGroup] = useState('');
-    const [groups, setGroups] = useState(['Group 1', 'Group 2']);
-
-    const handleAddGroup = () => {
-        if (group && !groups.includes(group)) {
-            setGroups([...groups, group]);
-            setGroup('');
-        }
-    };
+    const [isNewNoteVisible, setIsNewNoteVisible] = useState(false);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -63,52 +44,52 @@ const Dashboard = ({ handleLogout }) => {
         fetchUserData();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    const logout = () => {
+        handleLogout();
+        navigate('/');
+    };
 
+    const toggleNewNoteVisibility = () => {
+        setIsNewNoteVisible(!isNewNoteVisible);
+    };
+
+    if (loading) return <div>Loading...</div>;
     if (!userDetails) return <div>No user details available</div>;
 
-
     return (
+        <>
+            <nav className="w-full bg-gray-800 text-white p-4 flex justify-between items-center shadow-md ">
+                <Link to='/profile' className=' hover:underline'>
+                <div className="flex items-center gap-4">
+                    <FaUserCircle className="text-3xl" />
+                    <h1 className="text-2xl font-bold">{userDetails.name.charAt(0).toUpperCase() + userDetails.name.substring(1)}</h1>
+                </div>
+                </Link>
+                <button
+                    onClick={logout}
+                    className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
+                >
+                    <AiOutlineLogout className="text-xl" />
+                    <span>Logout</span>
+                </button>
+            </nav>
 
-        <div className="flex justify-end gap-3 m-2 p-2 items-center bg-gray-100">
-            <h1 className="text-3xl font-bold flex items-center">  {userDetails.name.charAt(0).toUpperCase() + userDetails.name.substring(1)}</h1>
+            <div className="p-4 ">
+                {isNewNoteVisible && <NewHighlight />}
+            </div>
+
             <button
-                onClick={logout}
-                className='bg-red-500 text-white px-4 py-2 rounded'
+                onClick={toggleNewNoteVisibility}
+                className="fixed bottom-5 z-50 right-5 p-4 card bg-orange-600 text-white rounded-full shadow-lg hover:bg-orange-700 focus:outline-none"
             >
-                Logout
+                <IoIosAddCircleOutline className="text-3xl" />
             </button>
 
 
-            <Draggable>
-                <div className={`p-4 rounded-lg shadow-lg ${color} w-64 border border-gray-700`} style={{ zIndex: 100 }}>
-                    <div className="flex flex-col space-y-2">
-                        <ColorPicker color={color} setColor={setColor} />
-                        <input
-                            type="text"
-                            className="p-2 border rounded bg-gray-800 text-white border-gray-700"
-                            placeholder="Title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                        <textarea
-                            className="p-2 border rounded bg-gray-800 text-white border-gray-700"
-                            placeholder="Content"
-                            rows="4"
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                        />
-                        <GroupSelector
-                            group={group}
-                            groups={groups}
-                            setGroup={setGroup}
-                            handleAddGroup={handleAddGroup}
-                        />
-                    </div>
-                </div>
-            </Draggable>
-        </div>
+            <AllNotes/>
+
+        </>
     );
-}
+};
 
 export default Dashboard;

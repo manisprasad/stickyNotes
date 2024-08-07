@@ -29,7 +29,7 @@ const App = () => {
                 <Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
                 <Route path="/register" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register setIsLoggedIn={setIsLoggedIn} />} />
                 <Route path="/dashboard" element={isLoggedIn ? <Dashboard handleLogout={handleLogout} /> : <Navigate to="/" />} />
-                <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" />} />
+                <Route path="/profile" element={ <Profile/>} />
                 {/* Add more routes as needed */}
             </Routes>
         </Router>

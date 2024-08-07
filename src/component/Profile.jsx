@@ -33,6 +33,7 @@ const Profile = () => {
 
         fetchUserData();
     }, []);
+    console.log(userDetails);
 
     if (loading) return <div>Loading...</div>;
 
