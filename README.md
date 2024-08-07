@@ -23,13 +23,13 @@ A Sticky Notes web application built using React for the frontend and Spring Boo
 ### Prerequisites
 
 - Java 21 or higher
-- Node.js and npm (or yarn)
+- Node.js and npm 
 
 ### Backend Setup
 **Backend code is available here**
 https://github.com/manisprasad/NotesApi
 
-**Deployment Link (Railway.app)
+**Deployment Link (Railway.app)**
 notesapi-production-c782.up.railway.app
 
 1. Clone the repository:
