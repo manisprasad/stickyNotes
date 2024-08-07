@@ -31,7 +31,7 @@ const NewHighlight = () => {
             try {
                 setFetchingGroups(true);
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://notesapi-production-c782.up.railway.app/user/user_details', {
+                const response = await fetch('https://notesapi-production-c782.up.railway.app/user/user_details', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -39,10 +39,11 @@ const NewHighlight = () => {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    const groupNames = data.stickyNoteGroupNames || [];
-                    setGroups(groupNames); // Set the groups with the fetched group names
+                    const groupNames = data.stickyNoteGroupNames;
+                    setGroups(groupNames);
+                    console.log(groupNames);
                 } else {
-                    console.error('Failed to fetch groups:', response.statusText);
+                    toast.error('Failed to fetch groups:', response.statusText);
                 }
             } catch (error) {
                 console.error('Error fetching groups:', error);
@@ -113,10 +114,10 @@ const NewHighlight = () => {
             updatedAt: Date.now(),
         };
 
-        // Get the token from local storage
+
         const token = localStorage.getItem('token');
 
-        // Send the new note to the API
+
         try {
             setAddingNote(true);
             const response = await fetch('https://notesapi-production-c782.up.railway.app/notes/add', {
@@ -134,6 +135,7 @@ const NewHighlight = () => {
                 console.log('Note added successfully:', newNote);
                 toast.success('Note added successfully!');
                 resetForm();
+                location.reload();
             } else {
                 console.error('Failed to add note:', response.statusText);
                 toast.error('Failed to add note. Please try again.');
@@ -156,7 +158,7 @@ const NewHighlight = () => {
 
     const handleCancel = () => {
         resetForm();
-        setIsActive(false); // Or use another method to hide the component if required
+        setIsActive(false);
     };
 
     return (
@@ -259,7 +261,7 @@ const NewHighlight = () => {
                     <button
                         type="button"
                         onClick={handleCancel}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-sm text-sm hover:bg-indigo-700"
+                        className={`px-4 py-2 bg-indigo-600 text-white  rounded-sm text-sm hover:bg-indigo-700`}
                     >
                         Cancel
                     </button>
@@ -273,7 +275,7 @@ const NewHighlight = () => {
                 </div>
             </form>
 
-            {/* Render notes */}
+
         </div>
     );
 };

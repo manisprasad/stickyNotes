@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Register from './component/RegisterForm.jsx';
-import Dashboard from './component/Dashboard.jsx';
+import Register from './component/RegisterForm';
+import Dashboard from './component/Dashboard';
 import toast, { Toaster } from 'react-hot-toast';
-import Login from './component/Login.jsx';
-import Profile from './component/Profile.jsx';
-import HomePage from './component/Home.jsx'; // Ensure the correct path
+import Login from './component/Login';
+import Profile from './component/Profile';
+import HomePage from './component/Home'; // Ensure the correct path
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        setIsLoggedIn(!!token); // Converts token to boolean
+        setIsLoggedIn(!!token);
     }, []);
 
     const handleLogout = () => {
@@ -29,8 +29,7 @@ const App = () => {
                 <Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
                 <Route path="/register" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register setIsLoggedIn={setIsLoggedIn} />} />
                 <Route path="/dashboard" element={isLoggedIn ? <Dashboard handleLogout={handleLogout} /> : <Navigate to="/" />} />
-                <Route path="/profile" element={ <Profile/>} />
-                {/* Add more routes as needed */}
+                <Route path="/profile" element={<Profile />} />
             </Routes>
         </Router>
     );

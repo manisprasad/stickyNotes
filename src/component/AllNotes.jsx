@@ -15,6 +15,7 @@ const AllNotes = () => {
     const [selectedGroup, setSelectedGroup] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
     const [deleting, setDeleting] = useState(false);
+    const [isConfirmed, setIsConfirmed] = useState(false);
     const [updating, setUpdating] = useState(false);
     const colors = ['bg-red-400', 'bg-blue-400', 'bg-yellow-400', 'bg-purple-400', 'bg-green-400'];
 
@@ -94,6 +95,10 @@ const AllNotes = () => {
     }, [selectedGroup, selectedColor]);
 
     const handleDelete = async (id) => {
+        const isConfirmed =  window.confirm("Are you sure you want to delete this note?");
+        if (!isConfirmed) {
+            return;
+        }
         try {
             setDeleting(true);
             const token = localStorage.getItem('token');
@@ -150,6 +155,9 @@ const AllNotes = () => {
 
             if (!response.ok) {
                 throw new Error('Failed to update note');
+            }else{
+                toast.success("Your Note has been updated.");
+                location.reload();
             }
 
             const updatedNote = await response.json();
@@ -160,11 +168,11 @@ const AllNotes = () => {
             );
             setEditingNote(null);
         } catch (err) {
-            setError(err.message);
+            throw new Error("Failed to update note");
         } finally {
             setUpdating(false);
         }
-    };
+    }
 
     if (loading) return <Loading />;
     if (error) return <div className="text-center p-4 text-red-500">{error}</div>;

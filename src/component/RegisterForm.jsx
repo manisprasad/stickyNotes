@@ -52,10 +52,10 @@ const RegisterForm = ({ setIsLoggedIn }) => {
         <div className="flex justify-center items-center h-screen bg-richblack-900 w-full relative">
             <div className='flex justify-evenly w-[1060px]'>
                 <div className="bg-richblack-700 shadow-lg rounded-lg p-8 w-full max-w-md box1">
-                    <h2 className="text-2xl font-bold mb-6 text-center text-white">Register</h2>
+                    <h2 className="text-2xl font-bold mb-6 text-center gradient-shade1 text-black pb-2">Register</h2>
                     <form onSubmit={submitHandler} className='flex flex-col gap-y-4'>
                         <label htmlFor='username' className='w-full'>
-                            <p className='text-sm text-white mb-1'>
+                            <p className='text-sm text-black mb-1'>
                                 Username<sup className='text-red-500'>*</sup>
                             </p>
                             <input
@@ -71,7 +71,7 @@ const RegisterForm = ({ setIsLoggedIn }) => {
                         </label>
 
                         <label htmlFor='emailid' className='w-full'>
-                            <p className='text-sm text-white mb-1'>
+                            <p className='text-sm text-black mb-1'>
                                 Email Address<sup className='text-red-500'>*</sup>
                             </p>
                             <input
@@ -87,7 +87,7 @@ const RegisterForm = ({ setIsLoggedIn }) => {
                         </label>
 
                         <label className='w-full relative'>
-                            <p className='text-sm text-white mb-1'>
+                            <p className='text-sm text-black mb-1'>
                                 Password<sup className='text-red-500'>*</sup>
                             </p>
                             <input
@@ -110,13 +110,13 @@ const RegisterForm = ({ setIsLoggedIn }) => {
                         </label>
 
                         <button
-                            className='bg-yellow-400 hover:bg-yellow-500 text-white rounded-md font-medium px-4 py-2 mt-6 transition duration-300'
+                            className='bg-yellow-400 hover:bg-yellow-500 text-black rounded-md font-medium px-4 py-2 mt-6 transition duration-300'
                         >
                             Register
                         </button>
 
                         <div className='mt-4 text-center'>
-                            <p className='text-sm text-white'>
+                            <p className='text-sm text-black'>
                                 Already have an account? <Link to='/login' className='text-blue-500 hover:underline'>Login</Link>
                             </p>
                         </div>

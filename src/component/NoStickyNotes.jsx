@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
-// import { useHistory } from 'react-router-dom';
 
 const NostickyNotes = () => {
 
